@@ -15,13 +15,17 @@ const routes: Ref<Route[]> = ref([
     <div class="logo col pe-3 ps-3">F</div>
     <div
       v-for="route in routes"
-      class="col-2 col-md-auto ps-md-3 pe-md-3 text-center">
+      class="text-nav-item col-2 col-md-auto ps-md-3 pe-md-3 text-center">
       <RouterLink :to="route.path">{{ route.name }}</RouterLink>
     </div>
   </nav>
 </template>
 
 <style scoped lang="scss">
+.text-nav-item {
+  display: none;
+}
+
 .logo {
   display: none;
 }
@@ -46,6 +50,10 @@ nav {
   }
 
   .logo {
+    display: block;
+  }
+
+  .text-nav-item {
     display: block;
   }
 }
