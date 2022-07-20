@@ -50,13 +50,18 @@ function isCurrentPath(path: string): boolean {
 </template>
 
 <style scoped lang="scss">
+$navbarColor: white;
+$navbarTransparency: 0.75;
+$navbarSelectedIconColor: black;
+
 .navbar-item {
   transition: border $mediumSpeed ease;
   border-bottom: 3px solid transparent;
+  color: black;
 }
 
 .current-path {
-  border-bottom: 3px solid red;
+  border-bottom: 3px solid $navbarSelectedIconColor;
 }
 
 .navbar-item:hover {
@@ -66,7 +71,8 @@ function isCurrentPath(path: string): boolean {
 .navbar-background {
   width: 100%;
   height: $navbarHeight;
-  background-color: white;
+  background-color: $navbarColor;
+  filter: opacity($navbarTransparency);
   position: fixed;
   bottom: 0;
 }
@@ -96,7 +102,6 @@ nav {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: white;
 }
 
 @include media-breakpoint-up(md) {
