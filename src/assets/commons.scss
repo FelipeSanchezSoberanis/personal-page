@@ -2,4 +2,8 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
 
-$navbarHeight: 75px;
+$navbarHeight: 60px;
+
+$fastSpeed: 150ms;
+$mediumSpeed: 250ms;
+$slowSpeed: 500ms;

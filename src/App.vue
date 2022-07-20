@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar.vue";
 
 <template>
   <NavBar />
-  <RouterView class="router-view" />
+  <RouterView class="container router-view" />
 </template>
 
 <style lang="scss">
