@@ -1,135 +1,54 @@
 <script setup lang="ts">
-import { RouterLink, useRouter } from "vue-router";
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 import type { Ref } from "vue";
 
-const router = useRouter();
-
-const routes: Ref<Route[]> = ref([
-  { path: "/", name: "Home", icon: "fa-solid fa-house" },
-  { path: "/about", name: "About", icon: "fa-solid fa-circle-info" },
-  { path: "/experience", name: "Experience", icon: "fa-solid fa-briefcase" }
-]);
-
-function navTo(path: string): void {
-  router.push(path);
+interface Route {
+  name: string;
+  path: string;
 }
 
-function isCurrentPath(path: string): boolean {
-  let currentPath: string = router.currentRoute.value.path;
-
-  if (path === "/" && currentPath === "/") return true;
-  if (path === "/" && currentPath !== "/") return false;
-
-  return currentPath.startsWith(path);
-}
+const routes: Route[] = [{ name: "Home", path: "/" }];
+const closeNavBarBtn: Ref<HTMLButtonElement | null> = ref(null);
 </script>
 
 <template>
-  <div class="navbar-background">
-    <nav class="container">
-      <div class="row g-0 justify-content-center align-items-center h-100">
-        <div class="logo col pe-3 ps-3">F</div>
-        <div
-          v-for="route in routes"
-          class="navbar-item pb-1 col-3 col-md-auto ps-md-3 pe-md-3 d-flex justify-content-center"
-          @click="navTo(route.path)"
-          :class="{ 'current-path': isCurrentPath(route.path) }">
-          <RouterLink :to="route.path">
-            <div class="navbar-text">{{ route.name }}</div>
-            <div class="navbar-icon">
-              <FontAwesomeIcon
-                :icon="route.icon"
-                class="navbar-icon"></FontAwesomeIcon>
-            </div>
-          </RouterLink>
+  <nav class="navbar navbar-expand-md bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Offcanvas navbar</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <button
+            ref="closeNavBarBtn"
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li v-for="route in routes" class="nav-item">
+              <router-link :to="{ path: route.path }" class="nav-link">{{
+                route.name
+              }}</router-link>
+            </li>
+          </ul>
         </div>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </template>
 
-<style scoped lang="scss">
-$navbarColor: white;
-$navbarTransparency: 0.75;
-$navbarSelectedIconColor: black;
-
-.navbar-item {
-  transition: border $mediumSpeed ease;
-  border-bottom: 3px solid transparent;
-  color: black;
-}
-
-.current-path {
-  border-bottom: 3px solid $navbarSelectedIconColor;
-}
-
-.navbar-item:hover {
-  cursor: pointer;
-}
-
-.navbar-background {
-  width: 100%;
-  height: $navbarHeight;
-  background-color: $navbarColor;
-  filter: opacity($navbarTransparency);
-  position: fixed;
-  bottom: 0;
-}
-
-.navbar-text {
-  display: none;
-}
-
-.navbar-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.logo {
-  display: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-nav {
-  position: fixed;
-  width: 100%;
-  height: $navbarHeight;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-@include media-breakpoint-up(md) {
-  .navbar-background {
-    top: 0;
-  }
-
-  nav {
-    top: 0;
-    justify-content: end !important;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .logo {
-    display: block;
-  }
-
-  .text-nav-item {
-    display: block;
-  }
-
-  .navbar-text {
-    display: block;
-  }
-
-  .navbar-icon {
-    display: none;
-  }
-}
-</style>
+<style scoped lang="scss"></style>
