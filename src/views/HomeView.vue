@@ -14,7 +14,7 @@ import Firma from "@/components/Firma.vue";
 .landing-block {
   width: 100%;
   height: 100vh;
-  background-image: url("software-development-wallpaper.jpg");
+  background-image: url("@/assets/software-development-wallpaper.jpg");
   position: relative;
 }
 
